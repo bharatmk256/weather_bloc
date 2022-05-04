@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_bloc/business_logic/bloc/weather_bloc.dart';
+import 'package:weather_bloc/business_logic/bloc/get_weather_bloc.dart';
 
 import 'presentation/screens/home_page.dart';
 
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: BlocProvider(
-        create: (context) => WeatherBloc(),
+        create: (context) => GetWeatherBloc(),
         child: MyHomePage(title: 'Flutter Demo Home Page'),
       ),
     );

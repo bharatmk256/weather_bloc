@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:weather_bloc/business_logic/bloc/weather_bloc.dart';
+
+import '../../business_logic/bloc/get_weather_bloc.dart';
 
 class MyHomePage extends StatelessWidget {
   MyHomePage({Key? key, required this.title}) : super(key: key);
@@ -10,8 +11,8 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final weatherBloc = BlocProvider.of<WeatherBloc>(context);
-    weatherBloc.add(GetWeather(place: "Ahmedabad"));
+    final getWeatherBloc = BlocProvider.of<GetWeatherBloc>(context);
+    getWeatherBloc.add(GetWeather(place: "Ahmedabad"));
     return Scaffold(
       appBar: AppBar(
         title: Text(title),
@@ -29,7 +30,7 @@ class MyHomePage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                weatherBloc.add(
+                getWeatherBloc.add(
                   GetWeather(
                     place: weatherEditingController.text,
                   ),
@@ -37,16 +38,16 @@ class MyHomePage extends StatelessWidget {
               },
               child: Text("Search"),
             ),
-            BlocBuilder<WeatherBloc, WeatherState>(
+            BlocBuilder<GetWeatherBloc, GetWeatherState>(
               builder: (context, state) {
                 Widget widget = Container();
-                if (state is WeatherLoading) {
+                if (state is GetWeatherLoading) {
                   widget = Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: CircularProgressIndicator(),
                   );
                 }
-                if (state is WeatherLoaded) {
+                if (state is GetWeatherLoaded) {
                   widget = Padding(
                     padding: const EdgeInsets.all(20.0),
                     child: Text(
@@ -58,7 +59,7 @@ class MyHomePage extends StatelessWidget {
                     ),
                   );
                 }
-                if (state is WeatherFailed) {
+                if (state is GetWeatherFailed) {
                   widget = Text("Weather failed");
                 }
                 return widget;
